@@ -23,6 +23,7 @@ public class PdbRepositoryImpl implements PdbRepository {
         this.pdbGraphqlClient = pdbGraphqlClient;
     }
 
+
     @Override
     public Object findPdbIds(String symbol) {
         return pdbClient.findPdbIds(buildPdbIdsRequest(symbol));
