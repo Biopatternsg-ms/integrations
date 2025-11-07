@@ -4,4 +4,6 @@ public interface PdbRepository {
 
     Object findPdbIds(String symbol);
 
+    Object searchByPdbId(String pdbId);
+
 }
