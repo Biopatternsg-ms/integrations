@@ -2,6 +2,7 @@ package com.biopatternsg.infrastructure.delivery.controllers;
 
 import com.biopatternsg.domain.ports.in.FindPdbIds;
 import com.biopatternsg.domain.ports.in.SearchByPdbId;
+import io.smallrye.common.annotation.Blocking;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
@@ -16,12 +17,14 @@ public class PdbController {
     private final FindPdbIds findPdbIds;
     private final SearchByPdbId searchByPdbId;
 
+    @Blocking
     @GET
     @Path("find-ids")
     public Object findIds(@QueryParam("symbol") String symbol) {
         return findPdbIds.execute(symbol);
     }
 
+    @Blocking
     @GET
     @Path("search")
     public Object searchById(@QueryParam("pdbId") String pdbId) {
