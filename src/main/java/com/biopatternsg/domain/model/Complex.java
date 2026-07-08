@@ -13,17 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.biopatternsg.domain.ports.out;
+package com.biopatternsg.domain.model;
 
-import com.biopatternsg.domain.model.Complex;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 
-public interface PdbRepository {
-
-    Object findPdbIds(String symbol);
-
-    Object searchByPdbId(String pdbId);
-
-    List<Complex> getComplexes(String uniprotId);
+@AllArgsConstructor
+@Getter
+@Setter
+@Builder
+public class Complex {
+    private String complexPdbId;
+    private List<String> participants;
+    private float score;
 }

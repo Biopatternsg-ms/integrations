@@ -13,17 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.biopatternsg.domain.ports.out;
+package com.biopatternsg.infrastructure.clients.model.pdb_complex;
 
-import com.biopatternsg.domain.model.Complex;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.util.List;
-
-public interface PdbRepository {
-
-    Object findPdbIds(String symbol);
-
-    Object searchByPdbId(String pdbId);
-
-    List<Complex> getComplexes(String uniprotId);
+@JsonIgnoreProperties(ignoreUnknown = true)
+public record Assembly(
+        @JsonProperty("pdb_id")
+        String pdbId,
+        @JsonProperty("preferred_assembly")
+        Boolean preferredAssembly,
+        @JsonProperty("experimental_method")
+        String experimentalMethod,
+        Double resolution
+) {
 }

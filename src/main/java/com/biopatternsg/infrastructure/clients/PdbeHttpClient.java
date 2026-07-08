@@ -13,17 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.biopatternsg.domain.ports.out;
+package com.biopatternsg.infrastructure.clients;
 
-import com.biopatternsg.domain.model.Complex;
+import com.biopatternsg.infrastructure.clients.model.pdb_complex.Response;
+import jakarta.ws.rs.*;
+import jakarta.ws.rs.core.MediaType;
+import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
 
-import java.util.List;
+@RegisterRestClient(configKey = "pdbe-api")
+public interface PdbeHttpClient {
 
-public interface PdbRepository {
-
-    Object findPdbIds(String symbol);
-
-    Object searchByPdbId(String pdbId);
-
-    List<Complex> getComplexes(String uniprotId);
+    @GET
+    @Path("/graph-api/uniprot/complex/{uniprotId}")
+    @Produces(MediaType.APPLICATION_JSON)
+    Response search(@PathParam("uniprotId") String uniprotId);
 }

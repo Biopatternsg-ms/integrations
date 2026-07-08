@@ -15,14 +15,19 @@
  */
 package com.biopatternsg.infrastructure.delivery.controllers;
 
+import com.biopatternsg.domain.model.Complex;
+import com.biopatternsg.domain.ports.in.FindPdbComplexes;
 import com.biopatternsg.domain.ports.in.FindPdbIds;
 import com.biopatternsg.domain.ports.in.SearchByPdbId;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.QueryParam;
 import lombok.RequiredArgsConstructor;
+
+import java.util.List;
 
 @ApplicationScoped
 @Path("/integrations/pdb")
@@ -31,6 +36,7 @@ public class PdbController {
 
     private final FindPdbIds findPdbIds;
     private final SearchByPdbId searchByPdbId;
+    private final FindPdbComplexes findPdbComplexes;
 
 
     @GET
@@ -44,6 +50,12 @@ public class PdbController {
     @Path("search")
     public Object searchById(@QueryParam("pdbId") @NotBlank(message = "The pdbId cannot be empty") String pdbId) {
         return searchByPdbId.execute(pdbId);
+    }
+
+    @GET
+    @Path("complexes/{uniprotId}")
+    public List<Complex> getComplexes(@PathParam("uniprotId") @NotBlank(message = "The uniprotId cannot be empty") String uniprotId) {
+        return findPdbComplexes.execute(uniprotId);
     }
 
 }

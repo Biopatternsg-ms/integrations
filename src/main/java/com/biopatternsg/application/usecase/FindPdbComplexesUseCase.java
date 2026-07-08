@@ -13,17 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.biopatternsg.domain.ports.out;
+package com.biopatternsg.application.usecase;
 
 import com.biopatternsg.domain.model.Complex;
+import com.biopatternsg.domain.ports.in.FindPdbComplexes;
+import com.biopatternsg.domain.ports.out.PdbRepository;
+import jakarta.enterprise.context.ApplicationScoped;
+import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
-public interface PdbRepository {
+@ApplicationScoped
+@RequiredArgsConstructor
+public class FindPdbComplexesUseCase implements FindPdbComplexes {
 
-    Object findPdbIds(String symbol);
+    private final PdbRepository pdbRepository;
 
-    Object searchByPdbId(String pdbId);
-
-    List<Complex> getComplexes(String uniprotId);
+    @Override
+    public List<Complex> execute(String uniprotId) {
+        return pdbRepository.getComplexes(uniprotId);
+    }
 }
